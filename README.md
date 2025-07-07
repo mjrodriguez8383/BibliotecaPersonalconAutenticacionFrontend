@@ -1,4 +1,4 @@
-# Todo App (React + Vite)
+# Todo App
 
 Aplicación web para gestión de tareas con autenticación, reconocimiento de voz y rutas protegidas. Construida con React, Vite y React Router DOM.
 
