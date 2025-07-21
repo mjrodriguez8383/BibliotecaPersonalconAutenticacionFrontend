@@ -57,7 +57,7 @@ Instalación
 
 1.  Clona el repositorio y accede a la carpeta del proyecto:
         
-    `git clone <url-del-repo-frontend> cd frontend-project-folder`
+    `git clone https://github.com/mjrodriguez8383/BibliotecaPersonalconAutenticacionFrontend.git`
     
 2.  Instala las dependencias:
     
