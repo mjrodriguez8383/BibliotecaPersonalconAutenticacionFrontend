@@ -1,66 +1,71 @@
-import { useState } from "react"
-import { Layout } from "../components/Layout"
-import { useAuth } from "../context/authContext"
-import { useNavigate } from "react-router-dom"
-
-const NODE_DEV = import.meta.env.VITE_NODE_DEV ?? "development"
-
-const API_URL = NODE_DEV === "production" ? import.meta.env.VITE_BASE_API_URL : "http://localhost:2222/tasks"
+// src/pages/Login.jsx
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "../context/toastContext"; // Importa useToast
 
 const Login = () => {
-  // Recuperar user a través del contexto del usuario
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const { user, login } = useAuth()
-  const navigate = useNavigate()
+  const { user, login } = useAuth();
+  const navigate = useNavigate();
+  const { showToast } = useToast(); // Usa el hook de toast
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    // setError(""); // Eliminar
+    setLoading(true);
+
     try {
-      const response = await fetch(`${API_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      })
-      console.log(response)
-      const data = await response.json()
-      setEmail("")
-      setPassword("")
+      const result = await login(email, password); 
 
-      login(data)
-      navigate("/dashboard")
-    } catch (error) {
-      setError(error.message)
+      if (!result.success) {
+        showToast(result.message || "Credenciales inválidas.", "error"); // Mostrar error con toast
+      }
+    } catch (err) {
+      console.error("Error en el login:", err);
+      showToast(err.message || "Error al intentar iniciar sesión. Intenta de nuevo.", "error"); // Mostrar error con toast
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  return <Layout>
+  return (
     <>
-      {
-        !user ? <form onSubmit={handleSubmit}>
+      {!user ? (
+        <form onSubmit={handleSubmit}>
           <h2>Iniciar sesión</h2>
-          {error && <p style={{ color: "red" }}>{error}</p>}
           <input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input
             type="password"
             placeholder="Contraseña"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Entrar</button>
-        </form> : <h1>Usuario logueado</h1>
-      }
+          <button type="submit" disabled={loading}>
+            {loading ? "Entrando..." : "Entrar"}
+          </button>
+        </form>
+      ) : (
+        <p>Redirigiendo al dashboard...</p>
+      )}
     </>
-  </Layout>
-}
+  );
+};
 
-export { Login }
+export { Login };

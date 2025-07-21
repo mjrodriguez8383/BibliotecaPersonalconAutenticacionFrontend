@@ -1,58 +1,115 @@
-# Todo App
+Biblioteca Personal (Frontend)
+==============================
 
-Aplicación web para gestión de tareas con autenticación, reconocimiento de voz y rutas protegidas. Construida con React, Vite y React Router DOM.
+Aplicación web para la gestión de tu biblioteca personal, con autenticación de usuarios y rutas protegidas. Construida con **React**, **Vite** y **React Router DOM**.
 
-## Requisitos previos
-- Node.js >= 16.x
-- npm >= 7.x
-- Backend compatible (por defecto espera en `http://localhost:2222/api/tasks`)
+Funcionalidades principales
+---------------------------
 
-## Instalación
+*   **Autenticación JWT**: Registro, login y gestión segura de sesiones.
+    
+*   **Gestión de libros**:
+    
+    *   Crear nuevos libros (título, autor, género, año).
+        
+    *   Visualizar listado personal.
+        
+    *   Actualizar estado de lectura (leído / no leído).
+        
+    *   Eliminar libros.
+        
+*   **Perfil de usuario**:
+    
+    *   Ver y editar información personal.
+        
+    *   Cambiar contraseña.
+        
+*   **Rutas protegidas**: Solo usuarios autenticados pueden acceder a Dashboard, Mis Libros y Ajustes.
+    
+*   **Notificaciones toast**: Mensajes flotantes para informar sobre acciones realizadas.
+    
+*   **Validación de formularios**: Indicadores visuales para errores y campos requeridos.
+    
+*   **Estilos responsive**: Paleta de colores y diseño personalizable en `src/index.css`.
+    
 
-1. Clona el repositorio y entra en la carpeta del proyecto:
-   ```bash
-   git clone <url-del-repo>
-   cd frontend
-   ```
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
+Requisitos
+----------
 
-## Scripts disponibles
-- `npm run dev`: Inicia la app en modo desarrollo (Vite)
-- `npm run build`: Genera la build de producción
-- `npm run preview`: Previsualiza la build de producción
-- `npm run lint`: Ejecuta ESLint para análisis de código
+*   Node.js >= 18.x
+    
+*   npm >= 7.x
+    
+*   Backend funcional (por defecto en `http://localhost:4000/api`)
+    
 
-## Variables de entorno
-Puedes configurar las siguientes variables en un archivo `.env`:
-- `VITE_NODE_DEV` ("development" o "production")
-- `VITE_BASE_API_URL` (URL del backend en producción)
+Variables de entorno
+--------------------
 
-## Estructura principal
-- `src/pages/`: Vistas principales (`Home`, `Login`, `Register`, `Dashboard`, `Ajustes`)
-- `src/components/`: Componentes reutilizables y de layout
-- `src/context/authContext.jsx`: Contexto global de autenticación (JWT)
-- `src/hooks/useTasks.js`: Hook para gestión de tareas y reconocimiento de voz
-- `src/services/api.js`: Lógica de comunicación con el backend
-- `src/router/RouterApp.jsx`: Definición de rutas y protección de rutas privadas
+Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
 
-## Funcionalidades destacadas
-- **Autenticación JWT**: Registro e inicio de sesión. El token se almacena en localStorage y se usa para proteger rutas y consumir la API.
-- **Gestión de tareas**: Crear, completar y eliminar tareas. Las tareas se obtienen del backend.
-- **Reconocimiento de voz**: Puedes agregar tareas usando el micrófono (SpeechRecognition API, botón "Grabar").
-- **Rutas protegidas**: Solo usuarios autenticados pueden acceder a Home y Dashboard.
-- **Estilos**: CSS sencillo y responsivo en `src/index.css`.
+`VITE_API_BASE_URL=http://localhost:4000/api`
 
-## Uso
-1. Asegúrate de que el backend esté corriendo en la URL esperada.
-2. Inicia la app:
-   ```bash
-   npm run dev
-   ```
-3. Accede a `http://localhost:5173` en tu navegador.
-4. Regístrate o inicia sesión para comenzar a gestionar tus tareas.
+Ajusta según tu entorno.
 
-## Créditos
-Desarrollado por Pepito.
+Instalación
+-----------
+
+1.  Clona el repositorio y accede a la carpeta del proyecto:
+        
+    `git clone <url-del-repo-frontend> cd frontend-project-folder`
+    
+2.  Instala las dependencias:
+    
+    `npm install`
+    
+
+Scripts disponibles
+-------------------
+
+*   `npm run dev` – Inicia la aplicación en modo desarrollo (Vite).
+    
+*   `npm run build` – Genera la build de producción.
+    
+*   `npm run preview` – Previsualiza localmente la build de producción.
+    
+*   `npm run lint` – Ejecuta ESLint para análisis de código.
+    
+
+Estructura principal
+--------------------
+
+*   `src/pages/` – Vistas principales (Home, Login, Register, Dashboard, MyBooks, Ajustes).
+    
+*   `src/components/` – Componentes reutilizables (Layout, Header, Footer, Toast).
+    
+*   `src/context/authContext.jsx` – Contexto global de autenticación.
+    
+*   `src/context/toastContext.jsx` – Contexto global para notificaciones.
+    
+*   `src/services/api.js` – Funciones para interacción con el backend.
+    
+*   `src/router/RouterApp.jsx` – Definición y protección de rutas.
+    
+*   `src/index.css` – Estilos globales y paleta de colores.
+    
+
+Uso
+---
+
+1.  Asegúrate de que tu backend esté corriendo en la URL definida en `VITE_API_BASE_URL`.
+    
+2.  Inicia la aplicación frontend:
+    
+    `npm run dev`
+    
+3.  Accede a `http://localhost:5173` (o el puerto configurado por Vite) en tu navegador.
+    
+4.  Regístrate o inicia sesión para empezar a gestionar tu biblioteca personal.
+    
+
+Créditos
+--------
+
+Desarrollado por Martin Rodriguez.
+Powered by Pepito.

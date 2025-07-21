@@ -1,40 +1,22 @@
-import { Link } from "react-router-dom"
-import { useAuth } from "../context/authContext"
-import { useNavigate } from "react-router-dom"
+// src/components/Layout.jsx
+import React from 'react';
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer"; 
 
 const Layout = ({ children }) => {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
-
-  const handleLogout = () => {
-    logout()
-    navigate("/login")
-  }
-
   return (
-    <>
-      <header>
-        <ul>
-          {
-            user && <>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/dashboard">Dashboard</Link></li>
-              <button onClick={handleLogout}>Cerrar sesión</button>
-            </>
-          }
-          {
-            !user && <>
-              <li><Link to="/login">Login</Link></li>
-              <li><Link to="/register">Register</Link></li>
-            </>
-          }
-
-        </ul>
+    <div className="app-container">
+      <header className="app-header">
+        <Navbar />
       </header>
-      <main>{children}</main>
-      <footer><h2>Sitio desarrollado por Pepito</h2></footer>
-    </>
-  )
-}
+      <main className="app-main-content">
+        {children}
+      </main>
+      <footer className="app-footer">
+        <Footer />
+      </footer>
+    </div>
+  );
+};
 
-export { Layout }
+export { Layout };
